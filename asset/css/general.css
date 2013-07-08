@@ -1,0 +1,226 @@
+/* -------- Change color (2nd parameter) based on a time change --------- */
+table.verify { border: 4px #009 solid; }
+
+/* --------------- Body Properties --------------- */
+html { height: 100%; }
+
+body {
+	font-family: "Trebuchet MS", "Arial", "Verdana", Sans-serif, "Helvetica";
+	font-size: 11pt; text-align: left; color: black;
+	background-color: white;
+	width:100%; height: 100%;
+	margin:0 auto; padding: 0;
+	position: relative;
+}
+
+/* --------------- General Properties --------------- */
+
+
+div#quick {
+	min-height: 300px; width: 225px;
+	border: 2px gray solid;
+	background-color:#F1F1F1;
+	text-align: center;
+	float:right;
+}
+div#mandate 
+	{ min-height: 300px; width: 225px; border: 2px gray solid; background-color: #F1F1F1; text-align: left; float: right; }
+
+div#footer 
+	{ border-top:1px black solid; text-align: center; position: fixed; left:0; bottom:0; width: 100%; background-color: white;}
+#footer p 
+	{ padding: 0; margin: 0; font-size: small; }
+iframe 
+	{ border: none; width: inherit; }
+
+ul.toc 
+	{ text-align:left; overflow: auto; margin: 0 0 0 5%; padding: 5px 0 5px 0; }
+ul.toc li 
+	{ float:left; list-style-image: none; width: 32%; }
+
+p 
+	{ font-size: 11pt; }
+
+li 
+	{ font-size:11pt; }
+li.banner
+	{ font-size: 9pt; }
+li.padding 
+	{ padding-top:5px; }
+li.head 
+	{ padding-left:45px; list-style-type:none; font-weight:bold; }
+
+
+a:visited
+	{ text-decoration:none; color: blue; }
+a:link
+	{ text-decoration:none; color: blue; }
+a:visited:hover
+	{ text-decoration:underline; }
+a:link:hover
+	{ text-decoration:underline; }
+
+span.minor 
+	{ font-weight:normal; }
+span.small 
+	{ font-size:x-small; }
+span.nav 
+	{ min-width: 140px; padding-right:90px; }
+
+ul.quick {
+	text-align: left;
+	padding-left:20px;
+	margin-left:0;
+	list-style-type:disc;
+	line-height:2.0;
+}
+
+#quickImg 
+	{ float: none; padding-bottom: 0; margin-bottom: 0; }
+h1 
+	{ text-align:left; padding-top:10px; font-size: 18pt; }
+h2 
+	{ font-size: 15pt; }
+h3 
+	{ font-size: 13pt; }
+b 
+	{ font-weight:600; }	
+img 
+	{ float: left; padding-right:5px; border: none; }
+
+
+/* ------------------------------- Glossary ------------------------------- */
+/* ---------- Links ------------ */
+a.gloss:visited, a.gloss 
+	{ font-style: italic; color:black; cursor: help; }
+a.gloss:hover 
+	{ color:blue; cursor: help; text-decoration:underline; }
+
+/* ----------- Page ------------ */
+.term 
+	{ color: black; background-color: #E0E0E0; font-weight: bold; font-size: 11pt; vertical-align: top; }
+dt 
+	{ font-size:11pt; font-weight:bold; }
+
+/* ------------------------------- Tables and Cells ------------------------------- */
+table 
+	{ width: 100%; border: 1px solid #BBB; border-collapse:collapse; font-size: 11pt; text-align: center; }
+td 
+	{ border: 1px solid; }
+th 
+	{ vertical-align: middle; font-weight: bold; border: 1px solid; }
+th.left, td.left, td.head, table.topic, td.space, table.coverage
+	{ text-align: left; }
+td.head 
+	{ font-weight: bold; padding: auto 5px 0 5px; background-color: #EEE; color: black; }
+td.chead, td.mhead 
+	{ font-weight: bold; padding:auto 7px auto 2px; }
+table.topic, td.space, table.topic td, table.topic th, table.coverage, table.coverage td, table.verify td
+	{ border: none; }
+td.space 
+	{ width: 5%; }
+table.topic th 
+	{ text-align:center; font-weight:bold; }
+table.coverage td 
+	{ vertical-align:top; }
+table.verify td 
+	{ background-color: #CCF; font-size:12pt; text-align:center; width: 36%; }
+div.column 
+	{ padding: 1px; min-height:50px; }
+div.left 
+	{ float:left; padding-right:2px; width:75%; }
+div.right 
+	{ float:right; padding-left:2px; width:24%; }
+
+/*------------------ Payroll Tables --------------*/
+table.calendar 
+	{ text-align: left; }
+table.calendar td 
+	{ height: 20px; width: 20px; font-size: x-small; vertical-align:top; }
+td.blank 
+	{ border: 0px; }
+div.calendar 
+	{ min-height: 770px; }
+div.payright, div.paycenter, div.payleft
+	{ float: left; width: 33%; }
+
+/*--------------- Pay Groups -----------------*/
+.pay1 
+	{ background-color: aqua; }
+.pay2 
+	{ background-color: lime; }
+.pay3 
+	{ background-color: orange; }
+.pay4 
+	{ background-color: fuchsia; }
+
+/* --------------- Counselor Notes --------------- */
+.couns, th.couns, span.couns td, td.couns, p.cous
+	{ color: red; }
+.couns 
+	{ border-left: thin silver double; border-right: thin silver double; padding: 0 2px 0 2px; }
+
+/*------------- Sitemap ------------------------ */
+ul.sitemap 
+	{ list-style-type: none; padding-left: 10px; }
+ul.sitemap li 
+	{ font-size: 9pt; }
+div.site4, div.site3, div.site2, div.site1 
+	{ float: left; width: 24%; }
+
+/* ---------------------------- NewsFlashes ----------------------- */
+.old-news 
+	{ display: none; color: green; background-color: #E6E6FF; }
+h2.news 
+	{ font-size:13pt; padding-left:10px; vertical-align:middle; }
+p.newsflash 
+	{ text-align:center; font-weight:bold; font-style:italic; padding: 3px; display: none; }
+img.newsflash 
+	{ float: none; padding-right: 20px; }
+
+/* ------------- Combo Box -------------------- */
+.comboGroup { position: relative; }
+
+input.comboBox {
+	width: 40em; height: 1em;
+	display: block;
+	margin-bottom: 0;
+	padding-bottom: 0;
+	background-color: transparent;
+	z-index: 10;
+}
+
+input.comboBox:focus, input.comboBox.written { background-color: white; z-index:100; }
+input.comboBox ~ * { position: relative; top: -1.4em; }
+input.comboBox:focus + *, input.comboBox.written + * { visibility: hidden; }
+#pargroup { position: relative; }
+
+input.comboBox + * { left: 1em; color: #666; z-index: -2; }
+input.comboBox ~ span.downArrow { left: 2em; cursor: pointer; }
+
+form input.comboBox ~ ul
+	{ position: absolute; top: 1.45em; left: 0; width: 36.5em; padding: 0; margin: 0; }
+
+.visi {
+	display:block !important;
+}
+
+form input.comboBox ~ ul li {
+	display: none; background-color: white;
+	padding: 0; margin: 0;
+	padding-left: 1em;
+}
+
+form input.comboBox ~ ul li:hover {
+	background-color: #5555FF;
+	cursor: pointer;
+}
+/* ----------------------------- Future Information ----------------------------- */
+
+body .future, body .needInfo
+	{ display: none !important;}
+
+.future
+	{ background-color: #E6E6FF; color: #000066; }
+.needInfo
+	{ background-color: #FFCCCC; color: #000000; }

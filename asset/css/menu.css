@@ -1,0 +1,111 @@
+#header #navigation {
+	text-decoration: none;  padding: 0; margin: 0;
+	width: 100%; display: inline-block;
+	font-weight: bold; z-index: 30; position: absolute; bottom: 0; left: 0;
+}
+
+#navigation ul
+	{  width: 210px; margin: 5px; font-weight: normal; padding-right: 1.3em; z-index: 10; }
+#navigation li
+	{ cursor: pointer; display: block; width: 100%; vertical-align: top; font-size: small; background-color: #DDD; }
+#navigation li li:hover, #navigation .lock
+	{ background-color:#FBFBFB !important;  color:#888 !important; }
+#navigation a, #navigation .flyout .sublist > b
+	{ display: block; width: 100%; }
+#navigation a:hover
+	{ text-decoration: none; }
+#navigation *
+	{ margin:0; padding:0; border: none; list-style: none; color: black; }
+#header #navigation .bl, #header #navigation .lock > ul
+	{ display: block; }
+
+#header #navigation > li
+	{ display: inline-block; width: 9%; float: left; line-height: 1.87; border-top: none; border-bottom: none; position: relative; }
+#header #navigation > li:first-child
+	{ border-left: none; }
+
+#navigation ul.top
+	{ left: -5px; top: 1.5em; text-align: left; }
+#navigation .mid ul.top
+	{ left: -138px; }
+
+#navigation .right.mid ul.top
+	{ right: -138px; }
+
+
+#navigation .top li {
+	border-bottom: 1px #CCC solid; border-top: none; padding: 0 5px 0 1em; margin: 0;
+	vertical-align: middle; line-height: 30px;
+}
+
+#navigation .top.flyout .sublist > ul > li, #navigation .top span.arrow + ul > li, #navigation .top span.arrow ~ ul > li
+	{ background-color: #EEE; }
+
+#navigation .top li li
+	{ background-color: #BBB; }
+
+#navigation .top.flyout li.sublist {
+	background-color:#DDD; cursor:default;}
+#navigation .top.flyout .sublist > ul, #navigation .top span.arrow + ul, #navigation .top span.arrow ~ ul
+	{ margin-left: -1em; margin-top: 0; }
+#navigation .top.flyout .sublist > ul, #navigation .top.flyout .sublist, span.arrow + ul
+	{ margin-bottom:0; padding-bottom:0; border-bottom: none; }
+
+#navigation .top.flyout .sublist > ul > li:first-child
+	{ border-top: 1px #555 solid; }
+
+#navigation .top.flyout li.single > ul, #navigation .top.flyout .sublist > ul > li > ul, #navigation .top
+	{ position: absolute; border-left: none; }
+
+#navigation .top > li > ul
+	{ display: inline-block; }
+
+#navigation .flyout li.single > ul, #navigation .flyout .sublist > ul > li > ul
+	{ display: none; left: 220px; top: -5px; }
+
+#navigation .flyout li.single:hover > ul, #navigation .flyout .sublist > ul > li:hover > ul, #navigation > li:hover > ul
+	{ display: block; }
+
+#navigation.hasJS .flyout li.single:hover > ul, #navigation.hasJS .flyout .sublist > ul > li:hover > ul, #navigation.hasJS > li:hover > ul
+	{ display: none; }
+
+#navigation .top li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li
+	{ position: relative; top: -620px; left: 228px; border-left: 1px #CCC solid; }
+
+#navigation .top li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li
+	{ position: relative; top: -1240px; left: 456px; border-left: 1px #CCC solid; }
+
+#navigation .right .top li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li
+	{ left: auto; right: 228px; border-left: none; border-right: 1px #CCC solid; }
+
+#navigation .right .top li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li+li
+	{ left: auto; right: 456px; border-left: none; border-right: 1px #CCC solid; }
+
+
+#navigation .right ul.top
+	{ left: auto; right: -5px;  }
+#navigation .right .top.flyout li.single > ul, #navigation .right .flyout b + ul li > ul
+	{ left: auto; right: 223px; top: -5px; }
+
+#navigation .top span.arrow + ul, #navigation .top span.arrow ~ ul, #navigation .top.flyout li.sublist > b + ul, #navigation .flyout li.single b + ul span.arrow + ul,
+#navigation .flyout li.single b + ul span.arrow ~ ul
+	{ position: static; display: block; padding-bottom: 0; margin-bottom: 0; }
+
+#navigation .top span.arrow
+	{ position: absolute; left: 3px;  }
+
+#navigation .top span.arrow + ul > li, #navigation .top span.arrow ~ ul > li
+	{ width: 100%; }
+
+#navigation .flyout li.single b + ul span.arrow + ul, #navigation .flyout li.single b + ul span.arrow ~ ul,
+#navigation > li > ul, #navigation .top span.arrow + ul, #navigation .top span.arrow ~ ul
+	{ display: none; }
+
+#navigation .expands
+	{ position: relative; }
+
+span.float-right
+	{ float:right; }
+
+#oldMenuHolder
+	{ display: none; }

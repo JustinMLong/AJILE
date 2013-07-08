@@ -1,0 +1,44 @@
+{
+	"name": "AJILE",
+	"version": 8,
+	"main": "./_AJILE.js",
+	"directories.lib": [
+		"./lib/_prototypes.js",
+		"./lib/AJILE.assert.js",
+		"./lib/AJILE.dev.js",
+		"./lib/AJILE.dom.js",
+		"./lib/AJILE.error.js",
+		"./lib/AJILE.history.js",
+		"./lib/AJILE.history.js",
+		"./lib/AJILE.menu.js",
+		"./lib/AJILE.page.js",
+		"./lib/AJILE.par.js",
+		"./lib/AJILE.selector.js",
+		"./lib/AJILE.styles.js",
+		"./lib/AJILE.suggest.js",
+		"./lib/AJILE.tab.js",
+		"./lib/AJILE.view.js"
+	],
+	
+	"maintainers": [{
+		"name": "Justin Long",
+		"email": "justin.long@outlook.com"
+	}],
+	
+	"description": "Provides a framework for knowledgebases to more quickly serve \
+	                larger content and provide a better end user experience.",
+	
+	"bugs": "",
+	
+	"repositories": "",
+	
+	"dependencies": {},
+	"os": {},
+	"cpu", {},
+	"engine": {},
+	"builtin": false,
+	
+	//TODO implement common.js
+	"implements": []
+
+}

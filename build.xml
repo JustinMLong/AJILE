@@ -1,0 +1,28 @@
+<?xml version="1.0" ?>
+<project default="initialize">
+
+	<target name="get_properties">
+		<property file="ant.properties" />
+		<echo>Imported Properties</echo>
+	</target>
+
+	<target name="concat_js">
+		<concat destfile="${build_dir}/AJILE.${name}.compiled.js">
+			<filelist id="jsfiles_inits" dir="${loc}">
+				<file name="_prototypes.js" />
+				<file name="_AJILE.js" />
+			</filelist>
+			<fileset id="jsfiles" dir="${loc}">
+				<exclude name="_*" />
+				<exclude name="_vti*/" />
+			</fileset>
+		</concat>
+	</target>
+
+
+	<target name="initialize" depends="get_properties">
+		<antcall target="concat_js"><param name="loc" value="${lib_dir}" /><param name="name" value="lib" /></antcall>
+		<antcall target="concat_js"><param name="loc" value="${doc_dir}" /><param name="name" value="doc" /></antcall>
+		<antcall target="concat_js"><param name="loc" value="${test_dir}" /><param name="name" value="dir" /></antcall>
+	</target>
+</project>
