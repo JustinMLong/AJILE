@@ -1,0 +1,5 @@
+AJILE.define('xhr', function() {
+
+
+
+});
