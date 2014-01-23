@@ -1,5 +1,11 @@
 AJILE.define('styles', function(dom) {
 	var exports = {};
+	
+	[{tag: 'ccint', style: 'display: '+(AJILE.isInternal?'block':'none')}, 
+		 {tag: 'ccext', style: 'display: '+(AJILE.isExternal?'block':'none')},
+		 {tag: '#navigation li > ccint', style: 'display: '+(AJILE.isInternal?'inline-block':'none')}, 
+		 {tag: '#navigation li > ccext', style: 'display: '+(AJILE.isExternal?'inline-block':'none')},].
+		forEach(function(st) { AJILE.require('styles'); AJILE.styles.add(st.tag, st.style, 'Int/Ext') })
 
 	document.head.appendChild(dom.style(null, {type: 'text/css'});
 	
