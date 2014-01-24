@@ -20,4 +20,4 @@ AJILE.define('dom', function() {
 
 	return exports;
 
- } };
+ } );

@@ -1,9 +1,9 @@
-AJILE.date = {initialize: function() {
+AJILE.define('date', function(ui, event) {
 		// All Ele's use id -> tagName so shortcall this
 	var getEl = function(id, tag) { return document.getElementById(id).getElementsByTagName(tag)[0]; };
 	
-	AJILE.require('ui');
-	AJILE.require('event');
+	if (!(document.getElementById('dateCount') || document.getElementById('diffInterval') || document.getElementById('currDate')))
+		throw "Date Calculator not implemented correctly, check your implementation and reload the module";
 	
 	var UIElements = {
 		diffCount: (function() {
@@ -13,15 +13,15 @@ AJILE.date = {initialize: function() {
 				value = exports.value = AJILE.provide('date.UIElements.diffCount.value', 31);
 
 			display.onclick = function() { 
-			  AJILE.ui.Class.remove(input, 'hide');
-			  AJILE.ui.Class.add(display, 'hide');
+			  ui.Class.remove(input, 'hide');
+			  ui.Class.add(display, 'hide');
 			  input.focus();
 			  input.select();
 			};
 			AJILE.bind(input, 'blur', function() { 
 			  display.innerText = exports.value = (+input.value  !== null)? +input.value : 30; 
-			  AJILE.ui.Class.remove(display, 'hide');
-			  AJILE.ui.Class.add(input, 'hide');
+			  ui.Class.remove(display, 'hide');
+			  ui.Class.add(input, 'hide');
 			  AJILE.event.publish('dateMod');
 			});
 			AJILE.bind(input, 'keydown', function(ev) { 
@@ -47,14 +47,14 @@ AJILE.date = {initialize: function() {
 				value = exports.value = AJILE.provide('date.UIElements.diffInterval.value', 0);
 			
 			display.onclick = function() { 
-			  AJILE.ui.Class.remove(input, 'hide');
-			  AJILE.ui.Class.add(display, 'hide');
+			  ui.Class.remove(input, 'hide');
+			  ui.Class.add(display, 'hide');
 			  input.focus();
 			};
 			AJILE.bind(input, 'blur', function() { 
 			  display.innerText = exports.value = input.options[input.selectedIndex].innerText; 
-			  AJILE.ui.Class.remove(display, 'hide');
-			  AJILE.ui.Class.add(input, 'hide');
+			  ui.Class.remove(display, 'hide');
+			  ui.Class.add(input, 'hide');
 			  AJILE.event.publish('dateMod');
 			});
 			AJILE.bind(input, 'keydown', function(ev) { 
@@ -80,15 +80,15 @@ AJILE.date = {initialize: function() {
 				value = exports.value = AJILE.provide('date.UIElements.currDate.value', formatDate(new Date()));
 
 			display.onclick = function() { 
-			  AJILE.ui.Class.remove(input, 'hide');
-			  AJILE.ui.Class.add(display, 'hide');
+			  ui.Class.remove(input, 'hide');
+			  ui.Class.add(display, 'hide');
 			  input.focus();
 			};
 			AJILE.bind(input, 'blur', function() { 
 			  if (/today/i.test(input.value)) input.value = formatDate(new Date());
 			  display.innerText = exports.value = formatDate(new Date(input.value)) || formatDate(new Date()); 
-			  AJILE.ui.Class.remove(display, 'hide');
-			  AJILE.ui.Class.add(input, 'hide');
+			  ui.Class.remove(display, 'hide');
+			  ui.Class.add(input, 'hide');
 			  AJILE.event.publish('dateMod');
 			});
 			AJILE.bind(input, 'keydown', function(ev) { 
@@ -107,10 +107,10 @@ AJILE.date = {initialize: function() {
 		})()
 	};
 	
-	AJILE.event.subscribe('dateMod', function() {
-	  var newDate = new Date(UIElements.currDate.value), length = /day/.test(UIElements.diffInterval.value) ? 'Date' : (/month/.test(UIElements.diffInterval.value) ? 'Month' : 'Year');
-	  newDate['set' + length](UIElements.diffCount.value + newDate['get'+length]());
-    document.getElementById('calcDate').innerText = formatDate(newDate);
+	event.subscribe('dateMod', function() {
+		var newDate = new Date(UIElements.currDate.value), length = /day/.test(UIElements.diffInterval.value) ? 'Date' : (/month/.test(UIElements.diffInterval.value) ? 'Month' : 'Year');
+		newDate['set' + length](UIElements.diffCount.value + newDate['get'+length]());
+		document.getElementById('calcDate').innerText = formatDate(newDate);
 	});
 	
 	function formatDate(today) { 
@@ -118,6 +118,6 @@ AJILE.date = {initialize: function() {
 		return today.getMonth()+1 + '/' + today.getDate() + '/' + (+today.getFullYear()); 
 	}
 
-	AJILE.event.publish('dateMod');
+	event.publish('dateMod');
 
-} };
+});

@@ -1,20 +1,20 @@
 AJILE.define('styles', function(dom) {
 	var exports = {};
 	
-	[{tag: 'ccint', style: 'display: '+(AJILE.isInternal?'block':'none')}, 
+	/* [{tag: 'ccint', style: 'display: '+(AJILE.isInternal?'block':'none')}, 
 		 {tag: 'ccext', style: 'display: '+(AJILE.isExternal?'block':'none')},
 		 {tag: '#navigation li > ccint', style: 'display: '+(AJILE.isInternal?'inline-block':'none')}, 
 		 {tag: '#navigation li > ccext', style: 'display: '+(AJILE.isExternal?'inline-block':'none')},].
-		forEach(function(st) { AJILE.require('styles'); AJILE.styles.add(st.tag, st.style, 'Int/Ext') })
+		forEach(function(st) { AJILE.require('styles'); AJILE.styles.add(st.tag, st.style, 'Int/Ext') }) */
 
-	document.head.appendChild(dom.style(null, {type: 'text/css'});
+	document.head.appendChild(dom.style(null, {type: 'text/css'}));
 	
-	var styleSheet = document.styleSheets[document.styleSheets.length-1]);
+	var styleSheet = document.styleSheets[document.styleSheets.length-1];
 
 	
 	styleSheet.cssRules || (styleSheet.cssRules = styleSheet.rules);
 	styleSheet.deleteRule || (styleSheet.deleteRule = styleSheet.removeRule);
-	styleSheet.addRule || (styleSheet.addRule = (function(sel, nStyle) { styleSheet.insertRule(sel+' {'+nStyle+'}', styleSheet.cssRules.length);});
+	styleSheet.addRule || (styleSheet.addRule = (function(sel, nStyle) { styleSheet.insertRule(sel+' {'+nStyle+'}', styleSheet.cssRules.length);}));
 
 	var Style = function(selector, styles, tag) 
 		{ return { index: null, 'selector': selector, 'style': styles, 'tag': (tag||'').split(',') }; };

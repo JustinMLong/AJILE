@@ -71,14 +71,20 @@ var AJILE = (function() {
 	 * @return str     the value of the property
 	 * 
 	 */
-	var define = exports.define = function (property, value) {
+	var define = exports.define = function (property, value/*, function def */) {
 		var prop = properties, subProp = property.split('.')[property.split('.').length-1];
 		property.split('.').forEach(function(subProp, itr, arr) {
 			if (itr != arr.length-1)
 				prop = (prop[subProp] = prop[subProp] || {})  
 		});
 		
-		return prop[subProp] !== undefined ? prop[subProp] : (prop[subProp] = value);
+		if (prop[subProp] !== undefined)
+			return prop[subProp]
+		else
+			if (arguments.length == 3)
+				return prop[subProp] = value(arguments[1].map(function(def) { require(def) }));
+			else
+				return prop[subProp] = value;
 	};
 	
 	/**
@@ -90,7 +96,7 @@ var AJILE = (function() {
 	 * 
 	 */
 	var defined = function(property) {
-		return !!define(propery);
+		return !!define(property);
 	};
 
 	/**
@@ -99,23 +105,28 @@ var AJILE = (function() {
 	 *
 	 * @params modules  module/property list to return definitions for
 	 */
-	require: function(/* modules/prop */) {
+	var require = exports.require = function(/* modules/prop */) {
 		var modules = Array.prototype.slice.call(arguments, 0),
 			exports = [];
 		for (var mod=0; mod < modules.length; mod++) {
 			if (!defined(modules[mod]))
-				throw new Exception('Module not loaded!');
+				throw 'Module not loaded!';
 			else
 				exports.push(properties[modules[mod]]);
 		}
-		return exports;
-	},
-	
-	isInternal: false, isExternal: true, host: '',
-	isAsync: true, mainPage: null, options: {}, 
+		return (exports.length == 1) ? exports[0] : exports;
+	};
 
+		var updateComponents = exports.updateComponents = function(str, field, value) {
+		str = (str || '?'+field+'=" "');
+		str += (!(new RegExp('[?&]'+field+'=', 'i')).test(str))? ('&'+field + '=" "'): '';
+		return (str = str.replace(new RegExp('([?&])'+field+'=".*?"', 'im'), '$1'+field+'="'+encodeURI(value)+'"'));
+	};
 
-	clickHandle: function(ev) {
+	var getComponent = exports.getComponent = function(str, field) 
+		{ return (!(new RegExp('[?&]'+field+'[&=]', 'i')).test(str||''))?null:(str.replace(new RegExp('.*[?&]'+field+'="(.*?)".*', 'i'), '$1')); };
+
+	var clickHandle = function(ev) {
 		var event = ev || window.event, targ = this.href;
 
 		if (AJILE.isWithinAJILEDomain(targ) && this.target != '_blank') {
@@ -130,45 +141,32 @@ var AJILE = (function() {
 	}
 	else 
 		 { this.target = '_blank'; }
-	},
+	};
 
-	initialize: function(){
-		define('siteRoot', document.location.toString().replace(/#.*/, '').replace(/[^\/]*?$/g, ''));
-		define('host', document.location.protocol + '//' + document.location.host+'/');
-		define('isInternal', /(empsvcs)|(review)|(localhost)/.test(AJILE.siteRoot));
-		define('isExternal', !AJILE.isInternal);
-		[{tag: 'ccint', style: 'display: '+(AJILE.isInternal?'block':'none')}, 
-		 {tag: 'ccext', style: 'display: '+(AJILE.isExternal?'block':'none')},
-		 {tag: '#navigation li > ccint', style: 'display: '+(AJILE.isInternal?'inline-block':'none')}, 
-		 {tag: '#navigation li > ccext', style: 'display: '+(AJILE.isExternal?'inline-block':'none')},].
-		forEach(function(st) { AJILE.require('styles'); AJILE.styles.add(st.tag, st.style, 'Int/Ext') })
-			
-		AJILE.initialize.initArgs = ('#'+document.location.hash +'||?'+ document.location.search).replace(/#!(.*?)\|\|/, '?!p="$1"||').replace(/=(?!")(\w*)/, '="$1"');
-		AJILE.initialize.firstPage = AJILE.getComponent(AJILE.initialize.initArgs, '!p')||AJILE.initialize.firstPage;
-		AJILE.mainPage = AJILE.page.relativeToAbs(AJILE.mainPage || 'index.htm', AJILE.siteRoot.split('/'));
-		document.location.hash = '';
+	var siteRoot = define('siteRoot', document.location.toString().replace(/#.*/, '').replace(/[^\/]*?$/g, ''));
+	var host = define('host', document.location.protocol + '//' + document.location.host+'/');
+	var isInternal = define('isInternal', /(empsvcs)|(review)|(localhost)/.test(siteRoot));
+	var isExternal = define('isExternal', !isInternal);
+		
+	var initArgs = define('initArgs', ('#'+document.location.hash +'||?'+ document.location.search).replace(/#!(.*?)\|\|/, '?!p="$1"||').replace(/=(?!")(\w*)/, '="$1"'));
+	var firstPage = define('firstPage', getComponent(initArgs, '!p'));
+//	var mainPage = define('mainPage', AJILE.page.relativeToAbs(AJILE.mainPage || 'index.htm', AJILE.siteRoot.split('/')));
+	document.location.hash = '';
 
-		Object.keys(AJILE).forEach(function(module) { 
-			if (AJILE[module] && AJILE[module].initialize && module != 'ui') AJILE.require(module);
-		});
+/* 	Object.keys(AJILE).forEach(function(module) { 
+		if (AJILE[module] && AJILE[module].initialize && module != 'ui') AJILE.require(module);
+	}); */
 
-		AJILE.tab.initKBT();
-	},
-
-	isWithinAJILEDomain: function(href) {
-		 if (!~href.indexOf(require('host'))
+	var isWithinAJILEDomain = function(href) {
+		 if (!~href.indexOf(require('host')))
 			return false;
 		 return true;
-	 },
+	 };
 
-	updateComponents: function(str, field, value) {
-		str = (str || '?'+field+'=" "');
-		str += (!(new RegExp('[?&]'+field+'=', 'i')).test(str))? ('&'+field + '=" "'): '';
-		return (str = str.replace(new RegExp('([?&])'+field+'=".*?"', 'im'), '$1'+field+'="'+encodeURI(value)+'"'));
-	},
 
-	getComponent: function(str, field) 
-		{ return (!(new RegExp('[?&]'+field+'[&=]', 'i')).test(str||''))?null:(str.replace(new RegExp('.*[?&]'+field+'="(.*?)".*', 'i'), '$1')); }
- };
+		
+		
+	return exports;
+ })();
 
 

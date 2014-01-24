@@ -1,6 +1,6 @@
-AJILE.event = (function() {
+AJILE.define('event', [], function() {
 
-		bind: function(obj,type,fn) {
+	var bind = function(obj,type,fn) {
 		if (Array.isArray(obj)) { obj.forEach(function(obj) { AJILE.bind(obj, type, fn); }) }
 		if (Array.isArray(type)) { type.forEach(function(type) { AJILE.bind(obj, type, fn); }) }
 
@@ -11,9 +11,9 @@ AJILE.event = (function() {
 		else 
 			{ obj['on'+type] = fn; }
 		return obj;
-	},
+	};
 
-	unbind: function(obj,type,fn) {
+	var unbind = function(obj,type,fn) {
 		if (Array.isArray(obj)) { obj.forEach(function(obj) { AJILE.unbind(obj, type, fn); }) }
 		if (Array.isArray(type)) { type.forEach(function(type) { AJILE.unbind(obj, type, fn); }) }
 
@@ -24,7 +24,7 @@ AJILE.event = (function() {
 		else 
 			{ obj['on'+type] = function() {}; }
 		return obj;
-	}, 
+	}; 
 	
 	var exports = {}, topics = {}, subUid = -1;
 
@@ -42,6 +42,8 @@ AJILE.event = (function() {
 	};
  
 	var subscribe = exports.subscribe = function(topic, func) {
+		if (topic instanceof Node)
+			return bind(Array.prototype.slice.call(arguments, 0));
 		var token = (++subUid).toString();
 		topics[topic] = topics[topic] || [];
 
@@ -60,4 +62,4 @@ AJILE.event = (function() {
 	};
 
 	return exports;
-})();
+});

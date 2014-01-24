@@ -1,7 +1,7 @@
 AJILE.define('page', function() {
 
 	
-	loadPage: function(newLocation, ele, override) {
+	var loadPage = function(newLocation, ele, override) {
 		var hash, xhttp;
 		newLocation = newLocation.split('#');
 		hash = newLocation[1]||'#'; newLocation = newLocation[0];
@@ -12,15 +12,15 @@ AJILE.define('page', function() {
 		xhttp.onreadystatechange = function() { if (xhttp.readyState == 4) AJILE.page.getPage(xhttp, newLocation, hash);	};
 		xhttp.open('GET',newLocation+'?'+(new Date()).getTime(),AJILE.isAsync);
 		xhttp.send('');
-	},
+	};
 
-	getPage : function(xhttp, newLocation, hash) {
+	var getPage = function(xhttp, newLocation, hash) {
 		var rState = AJILE.page.updatePage.apply(xhttp, [newLocation]);
 		if (AJILE.tab.currentTab.getPer()%AJILE.tab.permissions.mutate != 0) AJILE.tab.moveToTab(AJILE.tab.allTabs.check(0).id);
 		AJILE.tab.currentTab.setContent(rState.text);
 		AJILE.page.goToBookMark(hash);
 		AJILE.tab.currentTab.setTitle(rState.page.title.replace(/.*?\:/, '')|| 'Untitled Page');
-		AJILE.ui.setContent(document.getElementById('breadcrumbs'), rState.page.url.replace(AJILE.require('siteRoot'));
+		AJILE.ui.setContent(document.getElementById('breadcrumbs')), rState.page.url.replace(AJILE.require('siteRoot'));
 		if (rState.page.scripts.length != 0 && rState.page.scripts.join('') != '') rState.page.scripts.forEach(function(script) { 
 			(window.execScript) ? window.execScript(script) : window.eval.call(window, script);
 		})
@@ -29,14 +29,14 @@ AJILE.define('page', function() {
 
 		AJILE.updateLocation(rState.page);
 		AJILE.history.SessionHistory.addPage(rState.page);
-	},
+	};
 	
-	updateLocation: function(page) {
+	var updateLocation = function(page) {
 		document.location.hash = AJILE.updateComponents(document.location.hash.toString(),'p',page.url);
 		document.title = page.title;
-	},
+	};
 
-	updatePage: function(newLocation) {
+	var updatePage = function(newLocation) {
 		var pageInfo = { 'text': null, 'page': new AJILE.history.PageEntry(null, newLocation) }, newBody;
 
 		if ( this.status == 200 ) {
@@ -57,10 +57,10 @@ AJILE.define('page', function() {
 		}
 		pageInfo.text = newBody;
 		return pageInfo;
-	},
+	};
 
 
-	updateAttr: function(newBody,tag,currFileLoc) {
+	var updateAttr = function(newBody,tag,currFileLoc) {
 		var regEx = new RegExp(tag+'="(?!(javascript|mailto\:))(.*?)"', 'gi');
 
 		newBody = newBody.replace(regEx, function(fStr,m1, loc) {
@@ -68,9 +68,9 @@ AJILE.define('page', function() {
 		});
 
 		return newBody;
-	},
+	};
 
-	relativeToAbs: function(hrefCh, currFileLocat) {
+	var relativeToAbs = function(hrefCh, currFileLocat) {
 		var newHref = (hrefCh.indexOf('#')==0)?currFileLocat.join('/')+hrefCh:'', upDirC = hrefCh.matchCount(/\.\./g);
 		if (!newHref) {
 			if (hrefCh.indexOf(':') > -1) 
@@ -83,26 +83,25 @@ AJILE.define('page', function() {
 		}
 
 		return newHref;
-	},
+	};
 
-	goToBookMark: function(bookmark) {
+	var goToBookMark = function(bookmark) {
 		var ele = document.getElementById(bookmark) || document.getElementsByName(bookmark)[0];
 		if (!ele) window.scrollTo(0,0);
 		else window.scrollTo(0,(AJILE.page.getY(ele)-100));
-	},
+	};
 
-	getY: function(elem)
-		{ return (elem.offsetParent ? (elem.offsetTop + AJILE.page.getY(elem.offsetParent)) : elem.offsetTop); },
+	var getY = function(elem)
+		{ return (elem.offsetParent ? (elem.offsetTop + AJILE.page.getY(elem.offsetParent)) : elem.offsetTop); };
 
-	initialize: function() {
-		for (var as=0, aLinks = document.getElementById('content').getElementsByTagName('a'); as < aLinks.length; as++) {
-		 if (aLinks[as].onclick != null || aLinks[as].target.toString() != '')
-				{continue;}
-			if (!(aLinks[as].href.indexOf(AJILE.siteRoot) == -1 || /javaLinkscript/i.test(aLinks[as].href)))
-				{aLinks[as].onmouseup = function() { return AJILE.clickHandle(); };
-				 aLinks[as].onclick = function() { return AJILE.preventDefault(); }; }
-			else
-				{aLinks[as].target = "_blank";}
-		}
- }
+	for (var as=0, aLinks = document.getElementById('content').getElementsByTagName('a'); as < aLinks.length; as++) {
+	 if (aLinks[as].onclick != null || aLinks[as].target.toString() != '')
+			{continue;}
+		if (!(aLinks[as].href.indexOf(AJILE.siteRoot) == -1 || /javaLinkscript/i.test(aLinks[as].href)))
+			{aLinks[as].onmouseup = function() { return AJILE.clickHandle(); };
+			 aLinks[as].onclick = function() { return AJILE.preventDefault(); }; }
+		else
+			{aLinks[as].target = "_blank";}
+	}
+
 });
